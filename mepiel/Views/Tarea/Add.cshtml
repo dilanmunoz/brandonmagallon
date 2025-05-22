@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+
+
+}
+<div class="mt-4">
+    @Html.ActionLink("Regresar", "Index", "Tarea", new { area = "" }, new { @class = "btn btn-primary" })
+</div>
+<h2>Nueva Tarea</h2>
+
+@Html.Raw(ViewBag.status != null ? ViewBag.status : "")
+<form asp-action="Add" asp-controller="Tarea" method="post">
+    <div class="mt-4">
+        <label class="form-label">Titulo</label>
+        <input type="text" name="titulo" class="form-control" required />
+    </div>
+    <div class="mt-4">
+        <label class="form-label">Descripción</label>
+        <input type="text" name="descripcion" class="form-control" />
+    </div>
+    <div class="mt-4">
+        <label class="form-label">Prioridad</label>
+        <select name="prioridad" class="form-control">
+            <option value="0">Baja</option>
+            <option value="1">Media</option>
+            <option value="2">Alta</option>
+        </select>
+    </div>
+    <div class="mt-4">
+        <label class="form-label">Vencimiento</label>
+        <input type="date" name="vencimiento" class="form-control" />
+    </div>
+    <div class="mt-4">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+
+</form>

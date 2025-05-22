@@ -1,0 +1,67 @@
+﻿
+@model mepiel.Models.Tarea
+@{
+    ViewBag.Title = "Editar";
+}
+<div class="mt-4">
+    @Html.ActionLink("Regresar", "Index", "Tarea", new { area = "" }, new { @class = "btn btn-primary" })
+</div>
+<h2>Editar Tarea</h2>
+@if (Model is null)
+{
+    if (ViewBag.status != null && ViewBag.status == "exito")
+    {
+        <p>Tarea Modificada con exito</p>
+    }
+    else if (ViewBag.status != null && ViewBag.status == "error")
+    {
+        <p>La tarea no se pudo modificar</p>
+    }
+    else
+    {
+        <p> Tarea no encontrada</p>
+    }
+}
+else
+{
+
+    <form asp-action="Editar" asp-controller="Tarea" method="post">
+        @Html.HiddenFor(model => model.id)
+        <div class="mt-4">
+            <label class="form-label">Titulo</label>
+            <input type="text" name="titulo" asp-for="titulo" value="@Model.titulo" class="form-control" required />
+        </div>
+        <div class="mt-4">
+            <label class="form-label">Descripción</label>
+            <input type="text" name="descripcion" asp-for="descripcion" value="@Model.descripcion" class="form-control" />
+        </div>
+        <div class="mt-4">
+            <label class="form-label">Prioridad</label>
+            <select id="select_prioridad" name="prioridad" class="form-control">
+                <option value="0">Baja</option>
+                <option value="1">Media</option>
+                <option value="2">Alta</option>
+            </select>
+        </div>
+        <div class="mt-4">
+            <label class="form-label">Vencimiento</label>
+            <input id="venci" type="date" name="vencimiento" asp-for="vencimiento" value="@Model.vencimiento" class="form-control" />
+        </div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+
+    </form>
+    @Scripts.Render("~/bundles/jquery")
+    <script>
+    $(document).ready(function () {
+        let date = "@Model.vencimiento";
+        date = date.split(" ")[0];
+        date = date.split("/");
+        let fecha = date[2] + "-" + date[1] + "-" + date[0];
+        console.log("fecha", fecha);
+        $("#select_prioridad").val(@Model.prioridad);
+        $("#venci").val(fecha);
+    });
+    </script>
+}

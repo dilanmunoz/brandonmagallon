@@ -1,0 +1,90 @@
+﻿
+@model IEnumerable<mepiel.Models.Tarea>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista de Tareas</h2>
+<p>
+    @Html.ActionLink("Nueva Tarea", "Add", "Tarea", new { area = "" }, new { @class = "btn btn-primary" })
+</p>
+@Html.Raw(ViewBag.status != null ? ViewBag.status : "")
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.titulo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prioridad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.registro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.vencimiento)
+        </th>
+        <th>
+            Acciones
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.titulo
+            </td>
+            <td>
+                @item.descripcion
+            </td>
+            <td>
+                @{
+                    switch (@item.prioridad)
+                    {
+                        case 0:
+                            <p>Bajo</p>
+                            break;
+                        case 1:
+                            <p>Medio</p>
+                            break;
+                        case 2:
+                            <p>Alto</p>
+                            break;
+                    }
+                }
+            </td>
+            <td>
+
+                @{
+                    if (item.estado == 1)
+                    {
+                        @Html.ActionLink("Completada", "Estado", "Tarea", new { id = item.id, valor = item.estado }, new { @class = "btn btn-primary" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Pendiente", "Estado", "Tarea", new { id = item.id, valor = item.estado }, new { @class = "btn btn-primary" })
+                    }
+                }
+
+            </td>
+            <td>
+                @item.registro
+            </td>
+            <td>
+                @item.vencimiento
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Editar", "Tarea", new { id = item.id }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Eliminar", "Delete", "Tarea", new { id = item.id, valor = item.estado }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+
+</table>

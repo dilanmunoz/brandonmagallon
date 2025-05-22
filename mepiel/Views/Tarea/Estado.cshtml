@@ -1,0 +1,27 @@
+﻿@model mepiel.Models.Tarea
+@{
+    ViewBag.Title = "Estado";
+    Layout = null;
+}
+@Html.Raw(ViewBag.valor)
+<form asp-action="Editar" asp-controller="Tarea" method="post">
+    @Html.Hidden("id", Model.id)
+    @Html.Hidden("valor", Model.estado)
+    @{
+        if (Model.estado == 1)
+        {
+            <button type="submit" class="btn btn-primary">
+                Completada
+            </button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-primary">
+                Pendiente 
+            </button>
+        }
+    }
+</form>
+
+
+
